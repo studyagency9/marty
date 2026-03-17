@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "npx http-server . -p 8080 -c-1",
-    "start": "npx http-server . -p 8080"
+    "start": "npx http-server . -p 8080",
+    "build": "echo 'Static site - no build needed'"
   },
   "devDependencies": {
     "http-server": "^14.1.1"
