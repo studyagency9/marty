@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <meta name="theme-color" content="#9B5DE5">
+    <meta name="description" content="Application fitness personnelle pour Martinese - Transformation 86kg → 75kg en 8 semaines">
+    
+    <!-- PWA iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Martinese Fitness">
+    <link rel="apple-touch-icon" href="/public/apple-icon.png">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="/public/icon-light-32x32.png">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="modern.css">
+    <link rel="stylesheet" href="icons.css">
+    <link rel="stylesheet" href="active-workout.css">
+    
+    <title>Martinese Fitness</title>
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splashScreen" class="splash-screen active">
+        <div class="splash-content">
+            <div class="splash-logo">
+                <div class="butterfly-logo">🦋</div>
+                <h1 class="splash-title">Martinese</h1>
+                <p class="splash-subtitle">Fitness Journey</p>
+            </div>
+            <div class="splash-loader">
+                <div class="loader-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="app" class="app">
+        <!-- Navigation -->
+        <nav class="nav-bar">
+            <div class="nav-content">
+                <div class="nav-title">Martinese Fitness</div>
+                <div class="nav-icons">
+                    <button id="notificationBtn" class="nav-icon" aria-label="Notifications">
+                        <span class="icon">🔔</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main id="mainContent" class="main-content">
+            <!-- Home Screen -->
+            <section id="homeScreen" class="screen active">
+                <div class="home-container">
+                    <!-- Hero Section -->
+                    <div class="hero-section">
+                        <div class="hero-greeting">
+                            <h1 class="greeting-text">Bonjour,</h1>
+                            <h2 class="greeting-name">Martinese 🦋</h2>
+                        </div>
+                        
+                        <!-- Main Progress Card -->
+                        <div class="main-progress-card">
+                            <div class="progress-header">
+                                <div class="icon icon-target icon-lg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <circle cx="12" cy="12" r="6"></circle>
+                                        <circle cx="12" cy="12" r="2"></circle>
+                                    </svg>
+                                </div>
+                                <div class="progress-info">
+                                    <p class="progress-label">Objectif</p>
+                                    <p class="progress-goal">86kg → 75kg</p>
+                                </div>
+                            </div>
+                            <div class="progress-bar-large">
+                                <div class="progress-fill-large" id="mainProgressFill" style="width: 30%"></div>
+                            </div>
+                            <div class="progress-stats-inline">
+                                <div class="stat-inline">
+                                    <div class="icon icon-fire">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 2C12 2 7 6 7 11C7 13.7614 9.23858 16 12 16C14.7614 16 17 13.7614 17 11C17 6 12 2 12 2Z"/>
+                                            <path d="M12 16C9.23858 16 7 18.2386 7 21C7 21.5523 7.44772 22 8 22H16C16.5523 22 17 21.5523 17 21C17 18.2386 14.7614 16 12 16Z"/>
+                                        </svg>
+                                    </div>
+                                    <span class="stat-number" id="streakValue">0</span>
+                                    <span class="stat-text">jours</span>
+                                </div>
+                                <div class="stat-inline">
+                                    <div class="icon icon-muscle">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M6 6C6 4.89543 6.89543 4 8 4C9.10457 4 10 4.89543 10 6V8H14V6C14 4.89543 14.8954 4 16 4C17.1046 4 18 4.89543 18 6V12C18 13.1046 17.1046 14 16 14C14.8954 14 14 13.1046 14 12V10H10V12C10 13.1046 9.10457 14 8 14C6.89543 14 6 13.1046 6 12V6Z"/>
+                                            <path d="M8 14V18C8 19.1046 8.89543 20 10 20C11.1046 20 12 19.1046 12 18V16H12C12 19.1046 13.1046 20 14 20C14.8954 20 16 19.1046 16 18V14"/>
+                                        </svg>
+                                    </div>
+                                    <span class="stat-number" id="sessionsValue">0</span>
+                                    <span class="stat-text">séances</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Daily Tip Button -->
+                    <div class="daily-tip-cta">
+                        <button id="viewDailyTipBtn" class="btn-daily-tip">
+                            <div class="icon icon-lightbulb" style="width: 24px; height: 24px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/>
+                                </svg>
+                            </div>
+                            <span>Conseil du jour</span>
+                        </button>
+                    </div>
+
+                    <!-- Today's Workout CTA -->
+                    <div id="todayWorkoutSection" class="today-cta-section">
+                        <div class="cta-card">
+                            <div class="cta-header">
+                                <h2 class="cta-title">Prête pour aujourd'hui ?</h2>
+                                <p class="cta-subtitle" id="todayWorkoutName">Séance du jour</p>
+                            </div>
+                            <div class="cta-info">
+                                <span class="cta-badge" id="todayWorkoutBadge">
+                                    <div class="icon icon-timer" style="width: 20px; height: 20px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="13" r="8"></circle>
+                                            <polyline points="12 9 12 13 15 15"></polyline>
+                                            <path d="M9 2h6"></path>
+                                        </svg>
+                                    </div>
+                                    <span class="badge-text">25 min</span>
+                                </span>
+                                <span class="cta-badge">
+                                    <div class="icon icon-muscle" style="width: 20px; height: 20px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M6 6C6 4.89543 6.89543 4 8 4C9.10457 4 10 4.89543 10 6V8H14V6C14 4.89543 14.8954 4 16 4C17.1046 4 18 4.89543 18 6V12C18 13.1046 17.1046 14 16 14C14.8954 14 14 13.1046 14 12V10H10V12C10 13.1046 9.10457 14 8 14C6.89543 14 6 13.1046 6 12V6Z"/>
+                                        </svg>
+                                    </div>
+                                    <span class="badge-text" id="todayExercisesCount">6 exercices</span>
+                                </span>
+                            </div>
+                            <button id="startSessionBtn" class="btn-cta-large">
+                                <div class="icon icon-play" style="width: 24px; height: 24px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
+                                <span class="btn-cta-text">Commencer l'entraînement</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Weekly Schedule (Compact) -->
+                    <div class="weekly-schedule-compact">
+                        <h3 class="section-subtitle">Cette semaine</h3>
+                        <div id="weeklyCards" class="week-grid">
+                            <!-- Generated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Butterfly decoration -->
+                <div id="butterflyContainer" class="butterfly-container"></div>
+            </section>
+
+            <!-- Workout Session Screen -->
+            <section id="workoutScreen" class="screen">
+                <div class="workout-container">
+                    <!-- Progress Indicator -->
+                    <div class="workout-progress-bar">
+                        <div class="workout-progress-fill" id="workoutProgressFill" style="width: 0%"></div>
+                    </div>
+                    
+                    <div class="session-header">
+                        <h2 id="sessionTitle" class="session-title">Entraînement du jour</h2>
+                        <p class="session-progress-text" id="sessionProgressText">Exercice 1 sur 6</p>
+                    </div>
+
+                    <div id="exercisesListContainer" class="exercises-list-simple">
+                        <!-- Generated by JavaScript -->
+                    </div>
+                    
+                    <div style="padding: 1.5rem;">
+                        <button id="startActiveWorkoutBtn" class="btn-cta-large" style="width: 100%;">
+                            <div class="icon icon-play" style="width: 24px; height: 24px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                            </div>
+                            <span class="btn-cta-text">Lancer la séance</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Active Workout Session Screen -->
+            <section id="activeWorkoutScreen" class="screen">
+                <div class="active-workout-container">
+                    <!-- Progress Bar -->
+                    <div class="active-workout-progress">
+                        <div class="active-workout-progress-fill" id="activeWorkoutProgressFill" style="width: 0%"></div>
+                    </div>
+                    
+                    <!-- Exercise Counter -->
+                    <div class="active-workout-header">
+                        <button class="btn-back-simple" id="exitWorkoutBtn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="15 18 9 12 15 6"></polyline>
+                            </svg>
+                        </button>
+                        <p class="active-workout-counter" id="activeWorkoutCounter">Exercice 1 sur 6</p>
+                    </div>
+                    
+                    <!-- Video/Demo Area -->
+                    <div class="active-workout-video" id="activeWorkoutVideo">
+                        <div class="video-placeholder">
+                            <div class="video-icon">🎥</div>
+                            <p class="video-text">Vidéo de démonstration</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Exercise Info -->
+                    <div class="active-workout-info">
+                        <h2 class="active-workout-name" id="activeWorkoutName">Seated Leg Raises</h2>
+                        <p class="active-workout-reps" id="activeWorkoutReps">12-15 répétitions</p>
+                        <p class="active-workout-description" id="activeWorkoutDescription">Cet exercice travaille les abdominaux et les muscles des jambes.</p>
+                    </div>
+                    
+                    <!-- Timer Circle -->
+                    <div class="active-workout-timer">
+                        <svg class="timer-circle-svg" viewBox="0 0 200 200">
+                            <defs>
+                                <linearGradient id="timerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#9B5DE5;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#5B21B6;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <circle class="timer-circle-bg" cx="100" cy="100" r="85" fill="none" stroke="#E5E7EB" stroke-width="8"></circle>
+                            <circle class="timer-circle-progress" id="timerCircleProgress" cx="100" cy="100" r="85" fill="none" stroke="url(#timerGradient)" stroke-width="8" stroke-linecap="round"></circle>
+                        </svg>
+                        <div class="timer-content">
+                            <span class="timer-value" id="activeTimerValue">45</span>
+                            <span class="timer-label" id="activeTimerLabel">secondes</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="active-workout-actions">
+                        <button id="pauseActiveWorkoutBtn" class="btn-workout-control btn-pause">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                                <rect x="6" y="4" width="4" height="16" rx="1"/>
+                                <rect x="14" y="4" width="4" height="16" rx="1"/>
+                            </svg>
+                            <span>Pause</span>
+                        </button>
+                        <button id="skipActiveExerciseBtn" class="btn-workout-control btn-skip">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                                <polygon points="5 4 15 12 5 20 5 4"/>
+                                <line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                            <span>Suivant</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Preview Screen Overlay -->
+                    <div class="preview-screen-overlay" id="previewScreenOverlay" style="display: none;">
+                        <div class="preview-screen-content">
+                            <p class="preview-label">Prochain exercice</p>
+                            <h2 class="preview-exercise-name" id="previewExerciseName">Seated Leg Raises</h2>
+                            <p class="preview-exercise-reps" id="previewExerciseReps">12-15 répétitions</p>
+                            
+                            <div class="preview-demo-area">
+                                <div class="preview-demo-icon" id="previewDemoIcon">🏋️</div>
+                            </div>
+                            
+                            <div class="preview-timer">
+                                <span class="preview-timer-value" id="previewTimerValue">8</span>
+                                <span class="preview-timer-label">secondes</span>
+                            </div>
+                            
+                            <p class="preview-description" id="previewDescription">Prépare-toi pour cet exercice</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Rest Screen Overlay -->
+                    <div class="rest-screen-overlay" id="restScreenOverlay" style="display: none;">
+                        <div class="rest-screen-content">
+                            <div class="rest-icon">😌</div>
+                            <h2 class="rest-title">Pause</h2>
+                            <p class="rest-subtitle">Prépare-toi pour le prochain exercice</p>
+                            <div class="rest-timer">
+                                <span class="rest-timer-value" id="restTimerValue">10</span>
+                                <span class="rest-timer-label">secondes</span>
+                            </div>
+                            <button id="skipRestBtn" class="btn-skip-rest">Passer</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stats/Progress Screen -->
+            <section id="statsScreen" class="screen">
+                <div class="stats-container">
+                    <div class="stats-header">
+                        <h2 class="stats-title">Ma Progression</h2>
+                    </div>
+
+                    <!-- Goal Card -->
+                    <div class="goal-card-large">
+                        <div class="goal-header">
+                            <span class="goal-icon">🎯</span>
+                            <h3 class="goal-title">Objectif</h3>
+                        </div>
+                        <div class="goal-numbers">
+                            <span class="goal-start">86kg</span>
+                            <span class="goal-arrow">→</span>
+                            <span class="goal-target">75kg</span>
+                        </div>
+                        <div class="goal-progress-bar">
+                            <div class="goal-progress-fill" style="width: 30%"></div>
+                        </div>
+                        <p class="goal-status">30% complété • 8 semaines</p>
+                    </div>
+
+                    <!-- Stats Grid -->
+                    <div class="stats-grid-detailed">
+                        <div class="stat-card-detailed">
+                            <span class="stat-icon-large">🔥</span>
+                            <p class="stat-value-large" id="statsStreakValue">0</p>
+                            <p class="stat-label-detailed">Jours consécutifs</p>
+                        </div>
+                        <div class="stat-card-detailed">
+                            <span class="stat-icon-large">💪</span>
+                            <p class="stat-value-large" id="statsSessionsValue">0</p>
+                            <p class="stat-label-detailed">Séances complétées</p>
+                        </div>
+                        <div class="stat-card-detailed">
+                            <span class="stat-icon-large">⏱️</span>
+                            <p class="stat-value-large" id="statsTotalTime">0</p>
+                            <p class="stat-label-detailed">Minutes d'entraînement</p>
+                        </div>
+                        <div class="stat-card-detailed">
+                            <span class="stat-icon-large">📅</span>
+                            <p class="stat-value-large" id="statsWeeksCount">1</p>
+                            <p class="stat-label-detailed">Semaines</p>
+                        </div>
+                    </div>
+
+                    <!-- Weekly History -->
+                    <div class="weekly-history">
+                        <h3 class="section-subtitle">Historique</h3>
+                        <div id="weeklyHistoryCards" class="history-grid">
+                            <!-- Generated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exercise Screen -->
+            <section id="exerciseScreen" class="screen">
+                <div class="exercise-container">
+                    <button class="btn-back" id="backToSessionBtn">← Retour</button>
+
+                    <div class="exercise-content">
+                        <!-- Demo area -->
+                        <div class="exercise-demo">
+                            <div id="demoBg" class="demo-bg">
+                                <img id="demoImage" src="" alt="Exercise demo" class="demo-image">
+                                <div id="demoGif" class="demo-gif"></div>
+                            </div>
+                        </div>
+
+                        <!-- Exercise info -->
+                        <div class="exercise-info">
+                            <h2 id="exerciseName" class="exercise-title">--</h2>
+                            <div class="reps-counter">
+                                <span id="repsCount" class="reps-number">0</span>
+                                <span class="reps-text">répétitions</span>
+                            </div>
+                            <div id="postureAdvice" class="posture-advice">
+                                <p class="advice-text">--</p>
+                            </div>
+                        </div>
+
+                        <!-- Timer section (for circuit exercises) -->
+                        <div id="timerSection" class="timer-section" style="display: none;">
+                            <div class="timer-display">
+                                <span id="timerValue" class="timer-value">30</span>
+                                <span class="timer-label" id="timerLabel">Travail</span>
+                            </div>
+                            <div class="timer-controls">
+                                <button id="timerStartBtn" class="btn btn-secondary">Démarrer</button>
+                                <button id="timerPauseBtn" class="btn btn-secondary" style="display: none;">Pause</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="nextExerciseBtn" class="btn btn-primary btn-large">Exercice suivant</button>
+                </div>
+            </section>
+
+            <!-- Motivation Screen -->
+            <section id="motivationScreen" class="screen">
+                <div class="motivation-container">
+                    <button class="btn-back" id="backToHomeBtn2">← Retour</button>
+
+                    <div class="motivation-content">
+                        <h2 class="motivation-title">Conseil du jour</h2>
+                        <div class="motivation-card">
+                            <div id="motivationText" class="motivation-text">--</div>
+                        </div>
+                        <button id="nextTipBtn" class="btn btn-secondary">Conseil suivant</button>
+                    </div>
+
+                    <!-- Motivational messages -->
+                    <div class="notifications-history">
+                        <h3 class="history-title">Messages motivants</h3>
+                        <div id="messagesHistory" class="messages-list">
+                            <!-- Generated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Rest Day Screen -->
+            <section id="restDayScreen" class="screen">
+                <div class="rest-container">
+                    <button class="btn-back" id="backToHomeBtnRest">← Retour</button>
+                    
+                    <div class="rest-content">
+                        <h2 class="rest-title">Jour de repos</h2>
+                        <p class="rest-description">
+                            C'est un jour important pour la récupération. Fais des étirements légers et repose-toi bien!
+                        </p>
+                        
+                        <div class="rest-suggestions">
+                            <div class="suggestion-card">
+                                <div class="suggestion-icon">🧘</div>
+                                <div class="suggestion-text">Étirements légers</div>
+                            </div>
+                            <div class="suggestion-card">
+                                <div class="suggestion-icon">💧</div>
+                                <div class="suggestion-text">Boire de l'eau</div>
+                            </div>
+                            <div class="suggestion-card">
+                                <div class="suggestion-icon">😴</div>
+                                <div class="suggestion-text">Bien dormir</div>
+                            </div>
+                        </div>
+
+                        <button id="markRestDoneBtn" class="btn btn-primary btn-large">Marquer comme terminé</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cardio Session Screen -->
+            <section id="cardioScreen" class="screen">
+                <div class="cardio-container">
+                    <button class="btn-back" id="backToHomeCardio">← Retour</button>
+                    
+                    <div class="cardio-content">
+                        <h2 class="cardio-title" id="cardioTitle">Cardio</h2>
+                        <div class="cardio-options">
+                            <div class="cardio-card">
+                                <div class="cardio-icon">🏃</div>
+                                <div class="cardio-name">Tapis de course</div>
+                                <div class="cardio-time">20-30 min</div>
+                                <button class="btn btn-secondary cardio-btn">Commencer</button>
+                            </div>
+                            <div class="cardio-card">
+                                <div class="cardio-icon">🚴</div>
+                                <div class="cardio-name">Vélo</div>
+                                <div class="cardio-time">20-30 min</div>
+                                <button class="btn btn-secondary cardio-btn">Commencer</button>
+                            </div>
+                            <div class="cardio-card">
+                                <div class="cardio-icon">🪢</div>
+                                <div class="cardio-name">Corde à sauter</div>
+                                <div class="cardio-time">10-15 min</div>
+                                <button class="btn btn-secondary cardio-btn">Commencer</button>
+                            </div>
+                        </div>
+                        <button id="markCardioBtn" class="btn btn-primary btn-large" style="margin-top: 20px;">Marquer comme terminé</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" data-screen="homeScreen">
+                <div class="icon icon-home">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                </div>
+                <span class="nav-label">Accueil</span>
+            </button>
+            <button class="nav-item" data-screen="workoutScreen">
+                <div class="icon icon-dumbbell">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 6H4V18H6V6Z"/>
+                        <path d="M20 6H18V18H20V6Z"/>
+                        <path d="M8 11H16V13H8V11Z"/>
+                        <path d="M6 9H8V15H6V9Z"/>
+                        <path d="M16 9H18V15H16V9Z"/>
+                    </svg>
+                </div>
+                <span class="nav-label">Entraînement</span>
+            </button>
+            <button class="nav-item" data-screen="statsScreen">
+                <div class="icon icon-chart">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                </div>
+                <span class="nav-label">Progression</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Daily Tip Modal -->
+    <div id="dailyTipModal" class="daily-tip-modal">
+        <div class="daily-tip-content">
+            <div class="daily-tip-header">
+                <span class="daily-tip-emoji" id="dailyTipEmoji">💡</span>
+                <h2 class="daily-tip-heading">Conseil du Jour</h2>
+            </div>
+            <div class="daily-tip-body">
+                <h3 class="daily-tip-title" id="dailyTipTitle">--</h3>
+                <p class="daily-tip-text" id="dailyTipText">--</p>
+            </div>
+            <button id="closeDailyTipBtn" class="btn-close-tip">
+                <span>Compris ✓</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Celebration Overlay (dynamically added) -->
+
+    <!-- Scripts -->
+    <script src="program.js"></script>
+    <script src="exercises.js"></script>
+    <script src="tips.js"></script>
+    <script src="svg-icons.js"></script>
+    <script src="sounds.js"></script>
+    <script src="app.js"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js');
+        }
+    </script>
+</body>
+</html>

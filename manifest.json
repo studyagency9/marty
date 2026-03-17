@@ -1,0 +1,96 @@
+{
+  "name": "Martinese Fitness",
+  "short_name": "Martinese",
+  "description": "Application fitness personnelle pour Martinese - Transformation 86kg → 75kg en 8 semaines",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#F5EDFF",
+  "theme_color": "#9B5DE5",
+  "categories": ["health", "fitness"],
+  "screenshots": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%239B5DE5' width='192' height='192'/></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect fill='%239B5DE5' width='512' height='512'/></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ],
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%239B5DE5' width='192' height='192' rx='45'/><text x='50%' y='50%' font-size='100' font-weight='bold' text-anchor='middle' dominant-baseline='central' fill='%23F5EDFF'>🦋</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect fill='%239B5DE5' width='512' height='512' rx='120'/><text x='50%' y='50%' font-size='250' font-weight='bold' text-anchor='middle' dominant-baseline='central' fill='%23F5EDFF'>🦋</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%239B5DE5' width='192' height='192' rx='45'/><text x='50%' y='50%' font-size='100' font-weight='bold' text-anchor='middle' dominant-baseline='central' fill='%23F5EDFF'>🦋</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Commencer une séance",
+      "short_name": "Séance",
+      "description": "Commencer la séance d'aujourd'hui",
+      "url": "/?action=start-session",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><rect fill='%239B5DE5' width='96' height='96' rx='20'/><text x='50%' y='50%' font-size='50' text-anchor='middle' dominant-baseline='central'>🏃</text></svg>",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Ma progression",
+      "short_name": "Progression",
+      "description": "Voir ma progression et mes stats",
+      "url": "/?action=progress",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><rect fill='%239B5DE5' width='96' height='96' rx='20'/><text x='50%' y='50%' font-size='50' text-anchor='middle' dominant-baseline='central'>📊</text></svg>",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Conseil du jour",
+      "short_name": "Motivation",
+      "description": "Voir le conseil motivant du jour",
+      "url": "/?action=motivation",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><rect fill='%239B5DE5' width='96' height='96' rx='20'/><text x='50%' y='50%' font-size='50' text-anchor='middle' dominant-baseline='central'>✨</text></svg>",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "application/x-www-form-urlencoded",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}

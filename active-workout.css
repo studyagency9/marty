@@ -1,0 +1,499 @@
+/**
+ * ACTIVE WORKOUT SESSION STYLES
+ * Styles for the active workout screen with timer, video, and controls
+ */
+
+.active-workout-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1F2937 0%, #111827 100%);
+    padding-bottom: 80px;
+    position: relative;
+    overflow: hidden;
+}
+
+.active-workout-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(155, 93, 229, 0.15) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+/* Progress Bar */
+.active-workout-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.active-workout-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #9B5DE5 0%, #F59E0B 50%, #10B981 100%);
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 20px rgba(155, 93, 229, 0.5);
+}
+
+/* Header */
+.active-workout-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem 1.5rem 1rem;
+    position: relative;
+    z-index: 10;
+}
+
+.active-workout-counter {
+    flex: 1;
+    text-align: center;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.5px;
+}
+
+/* Video Area */
+.active-workout-video {
+    margin: 1rem 1.5rem;
+    background: #FFFFFF;
+    border-radius: 24px;
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(155, 93, 229, 0.4), 0 0 0 2px rgba(155, 93, 229, 0.3);
+    position: relative;
+    z-index: 10;
+}
+
+.active-workout-video img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    position: relative;
+    z-index: 1;
+}
+
+.video-placeholder {
+    text-align: center;
+    color: white;
+    position: relative;
+    z-index: 1;
+}
+
+.video-icon {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+    animation: pulse 2s ease-in-out infinite;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+}
+
+.video-text {
+    font-size: 1.125rem;
+    font-weight: 600;
+    opacity: 0.95;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Exercise Info */
+.active-workout-info {
+    padding: 1.5rem;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+.active-workout-name {
+    font-size: 2rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 0.75rem;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+    letter-spacing: -0.5px;
+}
+
+.active-workout-reps {
+    font-size: 1.25rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #9B5DE5 0%, #F59E0B 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.active-workout-description {
+    font-size: 1.0625rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.7;
+    max-width: 500px;
+    margin: 0 auto;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Timer Circle */
+.active-workout-timer {
+    position: relative;
+    width: 240px;
+    height: 240px;
+    margin: 2rem auto;
+    filter: drop-shadow(0 10px 30px rgba(155, 93, 229, 0.4));
+}
+
+.timer-circle-svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.timer-circle-bg {
+    stroke: rgba(255, 255, 255, 0.1);
+}
+
+.timer-circle-progress {
+    stroke-dasharray: 534;
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1s linear;
+    filter: drop-shadow(0 0 8px rgba(155, 93, 229, 0.6));
+}
+
+.timer-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.timer-value {
+    display: block;
+    font-size: 5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #9B5DE5 0%, #F59E0B 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    filter: drop-shadow(0 4px 12px rgba(155, 93, 229, 0.4));
+}
+
+.timer-label {
+    display: block;
+    font-size: 1.125rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 0.75rem;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Action Buttons */
+.active-workout-actions {
+    display: flex;
+    gap: 1rem;
+    padding: 0 1.5rem;
+    margin-top: 2rem;
+    position: relative;
+    z-index: 10;
+}
+
+.btn-workout-control {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1.25rem;
+    border: none;
+    border-radius: 20px;
+    font-size: 1.0625rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-workout-control::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.btn-workout-control:hover::before {
+    opacity: 1;
+}
+
+.btn-pause {
+    background: linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%);
+    color: white;
+    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.btn-pause:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(245, 158, 11, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.btn-pause:active {
+    transform: translateY(-1px);
+}
+
+.btn-skip {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.1) 100%);
+    color: white;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.btn-skip:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.btn-skip:active {
+    transform: translateY(-1px);
+}
+
+/* Rest Screen Overlay */
+.rest-screen-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(155, 93, 229, 0.97) 0%, rgba(91, 33, 182, 0.97) 100%);
+    backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.rest-screen-content {
+    text-align: center;
+    color: white;
+    padding: 2rem;
+}
+
+.rest-icon {
+    font-size: 6rem;
+    margin-bottom: 1.5rem;
+    animation: pulse 2s ease-in-out infinite;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+}
+
+.rest-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+    text-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    letter-spacing: -1px;
+}
+
+.rest-subtitle {
+    font-size: 1.25rem;
+    opacity: 0.95;
+    margin-bottom: 2.5rem;
+    font-weight: 500;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.rest-timer {
+    margin: 2.5rem 0;
+}
+
+.rest-timer-value {
+    display: block;
+    font-size: 6rem;
+    font-weight: 800;
+    line-height: 1;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.rest-timer-label {
+    display: block;
+    font-size: 1.5rem;
+    opacity: 0.95;
+    margin-top: 1rem;
+    font-weight: 600;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-skip-rest {
+    background: white;
+    color: #9B5DE5;
+    border: none;
+    padding: 1.25rem 2.5rem;
+    border-radius: 16px;
+    font-size: 1.125rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.btn-skip-rest:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+}
+
+.btn-skip-rest:active {
+    transform: translateY(-1px) scale(1.02);
+}
+
+/* Preview Screen Overlay */
+.preview-screen-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, #1F2937 0%, #111827 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.preview-screen-content {
+    text-align: center;
+    color: white;
+    padding: 2rem;
+    max-width: 600px;
+}
+
+.preview-label {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #F59E0B;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.preview-exercise-name {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    letter-spacing: -1px;
+    line-height: 1.2;
+}
+
+.preview-exercise-reps {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #9B5DE5 0%, #F59E0B 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 2rem;
+}
+
+.preview-demo-area {
+    margin: 2rem 0;
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 0;
+    box-shadow: 0 20px 60px rgba(155, 93, 229, 0.4), 0 0 0 2px rgba(155, 93, 229, 0.3);
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.preview-demo-area img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.preview-demo-icon {
+    font-size: 6rem;
+    animation: bounce 1.5s ease-in-out infinite;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+    padding: 3rem;
+}
+
+.preview-timer {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.preview-timer-value {
+    font-size: 4rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #9B5DE5 0%, #F59E0B 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 4px 12px rgba(155, 93, 229, 0.4));
+}
+
+.preview-timer-label {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 600;
+}
+
+.preview-description {
+    font-size: 1.125rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.7;
+    margin-top: 2rem;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Animations */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.8;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}

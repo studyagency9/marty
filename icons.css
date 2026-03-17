@@ -1,0 +1,199 @@
+/* ============================================
+   PROFESSIONAL SVG ICONS
+   Replacing emojis with clean, modern icons
+   ============================================ */
+
+/* Icon Container Base */
+.icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, var(--primary-100), var(--primary-50));
+    transition: all var(--transition-smooth);
+    flex-shrink: 0;
+}
+
+.icon-lg {
+    width: 56px;
+    height: 56px;
+}
+
+.icon-xl {
+    width: 72px;
+    height: 72px;
+}
+
+/* SVG Icons */
+.icon svg {
+    width: 55%;
+    height: 55%;
+    fill: var(--primary-600);
+    stroke: var(--primary-600);
+    transition: all var(--transition-smooth);
+}
+
+/* Target Icon */
+.icon-target {
+    background: linear-gradient(135deg, #FFE5E5, #FFF0F0);
+}
+
+.icon-target svg {
+    fill: #EF4444;
+}
+
+/* Fire Icon */
+.icon-fire {
+    background: linear-gradient(135deg, #FFF4E5, #FFF8F0);
+}
+
+.icon-fire svg {
+    fill: #F59E0B;
+}
+
+/* Muscle Icon */
+.icon-muscle {
+    background: linear-gradient(135deg, #FFF4E5, #FFF8F0);
+}
+
+.icon-muscle svg {
+    fill: #F59E0B;
+}
+
+/* Timer Icon */
+.icon-timer {
+    background: linear-gradient(135deg, var(--primary-100), var(--primary-50));
+}
+
+.icon-timer svg {
+    fill: var(--primary-600);
+}
+
+/* Calendar Icon */
+.icon-calendar {
+    background: linear-gradient(135deg, #E5F4FF, #F0F9FF);
+}
+
+.icon-calendar svg {
+    fill: #3B82F6;
+}
+
+/* Play Icon */
+.icon-play {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-800));
+}
+
+.icon-play svg {
+    fill: white;
+}
+
+/* Walking Icon */
+.icon-walk {
+    background: linear-gradient(135deg, #E5F9F0, #F0FDF7);
+}
+
+.icon-walk svg {
+    fill: #10B981;
+}
+
+/* Stretch Icon */
+.icon-stretch {
+    background: linear-gradient(135deg, #FFF4E5, #FFF8F0);
+}
+
+.icon-stretch svg {
+    fill: #F59E0B;
+}
+
+/* Chart Icon */
+.icon-chart {
+    background: linear-gradient(135deg, var(--primary-100), var(--primary-50));
+}
+
+.icon-chart svg {
+    fill: var(--primary-600);
+}
+
+/* Home Icon */
+.icon-home {
+    background: transparent;
+}
+
+.icon-home svg {
+    fill: var(--gray-400);
+}
+
+.nav-item.active .icon-home svg {
+    fill: var(--primary-600);
+}
+
+/* Dumbbell Icon */
+.icon-dumbbell {
+    background: transparent;
+}
+
+.icon-dumbbell svg {
+    fill: var(--gray-400);
+}
+
+.nav-item.active .icon-dumbbell svg {
+    fill: var(--primary-600);
+}
+
+/* Stats Icon */
+.icon-stats {
+    background: transparent;
+}
+
+.icon-stats svg {
+    fill: var(--gray-400);
+}
+
+.nav-item.active .icon-stats svg {
+    fill: var(--primary-600);
+}
+
+/* Notification Bell */
+.icon-bell {
+    background: transparent;
+}
+
+.icon-bell svg {
+    fill: var(--primary-600);
+}
+
+/* Butterfly Icon */
+.icon-butterfly {
+    background: transparent;
+}
+
+.icon-butterfly svg {
+    fill: var(--primary-400);
+    opacity: 0.6;
+}
+
+/* Hover Effects */
+.icon:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: var(--shadow-primary);
+}
+
+.icon:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* Animation for icons */
+@keyframes iconPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.icon.pulse {
+    animation: iconPulse 2s ease-in-out infinite;
+}
