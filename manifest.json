@@ -8,6 +8,8 @@
   "orientation": "portrait-primary",
   "background_color": "#F5EDFF",
   "theme_color": "#9B5DE5",
+  "platform": "ios",
+  "prefer_related_applications": false,
   "categories": ["health", "fitness"],
   "screenshots": [
     {

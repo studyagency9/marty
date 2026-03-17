@@ -1318,15 +1318,179 @@ function exitActiveWorkout() {
 }
 
 /**
- * INSTALL PROMPT
+ * INSTALL PROMPT - PWA Installation
  */
 function setupInstallPrompt() {
     let deferredPrompt;
+    let installButton;
 
+    // Check if app is already installed
+    const isInstalled = window.matchMedia('(display-mode: standalone)').matches || 
+                       window.navigator.standalone === true;
+
+    // Don't show install prompt if already installed
+    if (isInstalled) {
+        console.log('[PWA] App already installed');
+        return;
+    }
+
+    // Create install button
+    function createInstallButton() {
+        const installBtn = document.createElement('button');
+        installBtn.id = 'installPwaBtn';
+        installBtn.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span style="font-size: 1.2rem;">📱</span>
+                <span>Ajouter à l'écran d'accueil</span>
+            </div>
+        `;
+        installBtn.style.cssText = `
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: linear-gradient(135deg, #9B5DE5 0%, #7C3AED 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(155, 93, 229, 0.3);
+            z-index: 10000;
+            transition: all 0.3s ease;
+            animation: slideInUp 0.5s ease;
+        `;
+
+        installBtn.addEventListener('mouseenter', () => {
+            installBtn.style.transform = 'translateY(-2px)';
+            installBtn.style.boxShadow = '0 6px 20px rgba(155, 93, 229, 0.4)';
+        });
+
+        installBtn.addEventListener('mouseleave', () => {
+            installBtn.style.transform = 'translateY(0)';
+            installBtn.style.boxShadow = '0 4px 16px rgba(155, 93, 229, 0.3)';
+        });
+
+        installBtn.addEventListener('click', () => {
+            if (deferredPrompt) {
+                // Android/Chrome installation
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('[PWA] User accepted the install prompt');
+                        installBtn.style.display = 'none';
+                    } else {
+                        console.log('[PWA] User dismissed the install prompt');
+                    }
+                    deferredPrompt = null;
+                });
+            } else {
+                // iOS/Safari installation - show instructions
+                showIosInstallInstructions();
+            }
+        });
+
+        document.body.appendChild(installBtn);
+        return installBtn;
+    }
+
+    // Chrome/Android install prompt
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
-        // Show install button if desired
+        
+        if (!installButton) {
+            installButton = createInstallButton();
+        }
+    });
+
+    // iOS/Safari - show install button after delay
+    setTimeout(() => {
+        if (!deferredPrompt && !installButton && !isInstalled) {
+            // Check if running on iOS Safari
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome|CriOS|FxiOS/.test(navigator.userAgent);
+            
+            if (isIOS && isSafari) {
+                installButton = createInstallButton();
+            }
+        }
+    }, 3000);
+}
+
+/**
+ * Show iOS installation instructions
+ */
+function showIosInstallInstructions() {
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 10001;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: fadeIn 0.3s ease;
+    `;
+
+    modal.innerHTML = `
+        <div style="
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 350px;
+            width: 90%;
+            text-align: center;
+            animation: slideUp 0.3s ease;
+        ">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">📱</div>
+            <h3 style="margin: 0 0 1rem 0; color: #333; font-size: 1.3rem;">Installer Martinese Fitness</h3>
+            <div style="text-align: left; margin: 1.5rem 0; color: #666; line-height: 1.6;">
+                <p style="margin: 0 0 1rem 0;"><strong>Pour iPhone/iPad:</strong></p>
+                <ol style="margin: 0; padding-left: 1.5rem;">
+                    <li style="margin-bottom: 0.5rem;">Appuie sur l'icône <strong>Partager</strong> <span style="font-size: 1.2rem;">⬆️</span></li>
+                    <li style="margin-bottom: 0.5rem;">Fais défiler vers le bas</li>
+                    <li style="margin-bottom: 0.5rem;">Appuie sur <strong>"Sur l'écran d'accueil"</strong></li>
+                    <li style="margin-bottom: 0.5rem;">Appuie sur <strong>"Ajouter"</strong></li>
+                </ol>
+            </div>
+            <button id="closeIosInstall" style="
+                background: linear-gradient(135deg, #9B5DE5 0%, #7C3AED 100%);
+                color: white;
+                border: none;
+                border-radius: 8px;
+                padding: 12px 24px;
+                font-size: 1rem;
+                font-weight: 600;
+                cursor: pointer;
+                width: 100%;
+            ">J'ai compris</button>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    // Close modal
+    document.getElementById('closeIosInstall').addEventListener('click', () => {
+        modal.style.animation = 'fadeOut 0.3s ease';
+        setTimeout(() => {
+            document.body.removeChild(modal);
+        }, 300);
+    });
+
+    // Close on background click
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.animation = 'fadeOut 0.3s ease';
+            setTimeout(() => {
+                document.body.removeChild(modal);
+            }, 300);
+        }
     });
 }
 
